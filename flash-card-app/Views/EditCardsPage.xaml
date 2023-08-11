@@ -3,12 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="flash_card_app.Views.EditCardsPage"
              Title="Edit Cards">
-    <VerticalStackLayout>
-        <Label 
-            Text="Edit Page"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-
+    <VerticalStackLayout
+        Spacing="10"
+        Margin="10">
         <Button
             x:Name="btnFlashCard"
             Text="Home"
