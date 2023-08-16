@@ -9,4 +9,14 @@ public partial class CollectionPage : ContentPage
     {
         InitializeComponent();
     }
+
+    private void AddCollection_Clicked(object sender, EventArgs e)
+    {
+        Shell.Current.GoToAsync(nameof(CreateCollectionPage));
+    }
+
+    private void btnCancel_Clicked(object sender, EventArgs e)
+    {
+        Shell.Current.GoToAsync("..");
+    }
 }

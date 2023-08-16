@@ -3,7 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="flash_card_app.Views.EditCardsPage"
              Title="Edit Cards">
-    <Grid>
+    <Grid
+        x:Name="editCardPageGrid"
+        Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />

@@ -3,10 +3,32 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="flash_card_app.Views.CollectionPage"
              Title="CollectionPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
+    <Grid
+        x:Name="CollectionPageGrid"
+        Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <StackLayout
+            Grid.Row="0"
+            Padding="10"
+            Spacing="20"
+            Margin="0, 25, 0, 0">
+            <Button
+                x:Name="AddCollection"
+                Clicked="AddCollection_Clicked"
+                Text="Add Collection"/>
+            <Label 
+            Text="List of Titles of Collections will be here. OnClick edit card"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
-    </VerticalStackLayout>
+        </StackLayout>
+        <Button
+            Style="{StaticResource CancelBtn}"
+            x:Name="btnCancel"
+            Clicked="btnCancel_Clicked"
+            Grid.Row="1"/>
+
+    </Grid>
 </ContentPage>

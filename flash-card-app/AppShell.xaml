@@ -9,7 +9,7 @@
 
     <ShellContent
         Title="Home"
-        ContentTemplate="{DataTemplate views:FlashCardPage}"
-        Route="FlashCardPage" />
+        ContentTemplate="{DataTemplate views:HomePage}"
+        Route="StartPage" />
 
 </Shell>
