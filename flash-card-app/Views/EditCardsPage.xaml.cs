@@ -1,7 +1,10 @@
 using flash_card_app.Models;
 
 namespace flash_card_app.Views;
-
+/* -- Psudo Code --
+ * Edit Card Page will display a card and allow the user to edit the card or delete the card.
+ * !!All Code here will be changed!!
+ */
 public partial class EditCardsPage : ContentPage
 {
     public EditCardsPage()

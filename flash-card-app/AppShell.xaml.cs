@@ -11,5 +11,7 @@ public partial class AppShell : Shell
         Routing.RegisterRoute(nameof(FlashCardPage), typeof(FlashCardPage));
         Routing.RegisterRoute(nameof(EditCardsPage), typeof(EditCardsPage));
         Routing.RegisterRoute(nameof(AddCardPage), typeof(AddCardPage));
+        Routing.RegisterRoute(nameof(CollectionPage), typeof(CollectionPage));
+        Routing.RegisterRoute(nameof(ListCardsPage), typeof(ListCardsPage));
     }
 }
