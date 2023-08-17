@@ -49,7 +49,7 @@ namespace flash_card_app.Services
 
         }
 
-        public List<CollectionModel> GetAllPeople()
+        public List<CollectionModel> GetAllCollections()
         {
             // TODO: Init then retrieve a list of Person objects from the database into a list
             try

@@ -15,10 +15,17 @@
             Padding="10"
             Spacing="20"
             Margin="0, 25, 0, 0">
+            <Entry
+                x:Name="CollectionName"
+                Placeholder="Collection Name"/>
             <Button
                 x:Name="AddCollection"
                 Clicked="AddCollection_Clicked"
                 Text="Add Collection"/>
+            <Button
+                x:Name="btnRefresh"
+                Clicked="btnRefresh_Clicked"
+                Text="Refresh"/>
             <StackLayout
             Grid.Row="0"
             Padding="10">
@@ -31,8 +38,7 @@
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <TextCell
-                            Text="{Binding Question}"
-                            Detail="{Binding Answer}"/>
+                            Text="{Binding Name}"/>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
