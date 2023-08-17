@@ -19,9 +19,25 @@
                 x:Name="AddCollection"
                 Clicked="AddCollection_Clicked"
                 Text="Add Collection"/>
-            <CollectionView x:Name="flashCardList">
-                
-            </CollectionView>
+            <StackLayout
+            Grid.Row="0"
+            Padding="10">
+
+                <ListView
+                x:Name="collectionList"
+                BackgroundColor="Transparent"
+                SeparatorColor="Black"
+                RowHeight="60">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <TextCell
+                            Text="{Binding Question}"
+                            Detail="{Binding Answer}"/>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+            </StackLayout>
         </StackLayout>
         <Button
             Style="{StaticResource CancelBtn}"

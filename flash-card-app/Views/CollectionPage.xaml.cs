@@ -8,6 +8,9 @@ public partial class CollectionPage : ContentPage
     public CollectionPage()
     {
         InitializeComponent();
+
+
+
     }
 
     private void AddCollection_Clicked(object sender, EventArgs e)

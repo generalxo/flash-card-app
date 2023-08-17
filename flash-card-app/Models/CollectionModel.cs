@@ -7,6 +7,6 @@ namespace flash_card_app.Models
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
         [MaxLength(100)]
-        public string Title { get; set; }
+        public string Name { get; set; }
     }
 }
