@@ -19,10 +19,9 @@
                 x:Name="AddCollection"
                 Clicked="AddCollection_Clicked"
                 Text="Add Collection"/>
-            <Label 
-            Text="List of Titles of Collections will be here. OnClick edit card"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+            <CollectionView x:Name="flashCardList">
+                
+            </CollectionView>
         </StackLayout>
         <Button
             Style="{StaticResource CancelBtn}"

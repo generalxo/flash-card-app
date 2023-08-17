@@ -19,4 +19,9 @@ public partial class CollectionPage : ContentPage
     {
         Shell.Current.GoToAsync("..");
     }
+
+    private void Button_Clicked(object sender, EventArgs e)
+    {
+
+    }
 }
