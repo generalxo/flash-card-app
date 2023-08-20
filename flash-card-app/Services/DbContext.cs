@@ -26,7 +26,7 @@ namespace flash_card_app.Services
             _dbPath = dbPath;
         }
 
-        public void AddNewPerson(string name)
+        public void AddNewCollection(string name)
         {
             int result = 0;
             try
