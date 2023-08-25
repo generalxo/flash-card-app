@@ -1,5 +1,6 @@
 ﻿using flash_card_app.Models;
 using flash_card_app.Repository;
+using flash_card_app.Repository.IRepository;
 using SQLite;
 
 namespace flash_card_app.Services
@@ -7,7 +8,6 @@ namespace flash_card_app.Services
 	public class DbContext
 	{
 		private SQLiteAsyncConnection _conn;
-		private RepositoryBase<CollectionModel> _collectionRepository;
 		string _dbPath;
 
 		public string StatusMessage { get; set; }
@@ -24,20 +24,13 @@ namespace flash_card_app.Services
 
 			_conn = new SQLiteAsyncConnection(_dbPath);
 			await _conn.CreateTableAsync<CollectionModel>();
-			_collectionRepository = new CollectionRepository(_conn);
+			// You can add more CreateTableAsync calls for other models
 		}
 
-		public async Task AddNewCollection(string name)
+		public async Task<IRepository<T>> GetRepository<T>() where T : class, new()
 		{
 			await Init();
-			await _collectionRepository.Add(new CollectionModel { Name = name });
-			StatusMessage = $"Record added (Name: {name})";
-		}
-
-		public async Task<IQueryable<CollectionModel>> GetAllCollections()
-		{
-			await Init();
-			return await _collectionRepository.GetAll();
+			return new Repository<T>(_conn);
 		}
 	}
 }

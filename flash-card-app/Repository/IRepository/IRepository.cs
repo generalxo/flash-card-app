@@ -2,7 +2,7 @@
 
 namespace flash_card_app.Repository.IRepository
 {
-	public interface IRepositoryBase<T>
+	public interface IRepository<T> where T : class, new()
 	{
 		Task<IQueryable<T>> GetAll();
 		Task<IQueryable<T>> GetByCondition(Expression<Func<T, bool>> expression);

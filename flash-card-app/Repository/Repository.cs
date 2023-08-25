@@ -4,11 +4,11 @@ using System.Linq.Expressions;
 
 namespace flash_card_app.Repository
 {
-	public abstract class RepositoryBase<T> : IRepositoryBase<T> where T : class, new()
+	public class Repository<T> : IRepository<T> where T : class, new()
 	{
 		private SQLiteAsyncConnection _conn;
 
-		public RepositoryBase(SQLiteAsyncConnection conn)
+		public Repository(SQLiteAsyncConnection conn)
 		{
 			_conn = conn;
 		}
@@ -84,3 +84,4 @@ namespace flash_card_app.Repository
 		}
 	}
 }
+
