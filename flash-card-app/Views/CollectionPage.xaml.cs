@@ -3,27 +3,31 @@ using flash_card_app.Models;
 namespace flash_card_app.Views;
 public partial class CollectionPage : ContentPage
 {
-    public CollectionPage()
-    {
-        InitializeComponent();
-    }
+	private List<CollectionModel> collectionModels = new();
+	public CollectionPage()
+	{
+		InitializeComponent();
+	}
 
-    private void AddCollection_Clicked(object sender, EventArgs e)
-    {
-        //Shell.Current.GoToAsync(nameof(CreateCollectionPage));
-        App.Context.AddNewCollection(CollectionName.Text);
-    }
+	private async void AddCollection_Clicked(object sender, EventArgs e)
+	{
+		//Shell.Current.GoToAsync(nameof(CreateCollectionPage));
+		await App.Context.AddNewCollection(CollectionName.Text);
+	}
 
-    private void btnCancel_Clicked(object sender, EventArgs e)
-    {
-        Shell.Current.GoToAsync("..");
-    }
+	private void btnCancel_Clicked(object sender, EventArgs e)
+	{
+		Shell.Current.GoToAsync("..");
+	}
 
 
-    private void btnRefresh_Clicked(object sender, EventArgs e)
-    {
-        List<CollectionModel> collectionModels = App.Context.GetAllCollections();
+	private async void btnRefresh_Clicked(object sender, EventArgs e)
+	{
+		collectionModels.Clear();
+		var collections = await App.Context.GetAllCollections();
 
-        collectionList.ItemsSource = collectionModels;
-    }
+		collectionModels = collections.ToList();
+
+		collectionList.ItemsSource = collectionModels;
+	}
 }
