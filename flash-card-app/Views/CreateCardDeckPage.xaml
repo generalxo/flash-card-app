@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="flash_card_app.Views.CreateCardDeckPage"
+             xmlns:model="clr-namespace:flash_card_app.Models"
+             xmlns:viewmodel="clr-namespace:flash_card_app.ViewModels"
+             x:DataType="viewmodel:CreateCardDeckViewModel"
+             Title="{Binding Title}">
+    <VerticalStackLayout>
+        <Label 
+            FontFamily="RobotoMono-Regular"
+            Text="Enter name of new Card Deck"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+        <Entry
+            x:Name="CardDeckNameEntry"
+            Text="{Binding CardDeckName, Mode=TwoWay}"
+            FontFamily="RobotoMono-Regular"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+        <Button
+            x:Name="CreateCardDeckButton"
+            FontFamily="RobotoMono-Regular"
+            Text="Save"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+        <Button
+            x:Name="CancelCreateCardDeckButton"
+            FontFamily="RobotoMono-Regular"
+            Text="Cancel"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" 
+            Command="{Binding GoBackCommand}"/>
+    </VerticalStackLayout>
+</ContentPage>

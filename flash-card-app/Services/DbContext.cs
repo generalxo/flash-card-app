@@ -24,6 +24,7 @@ namespace flash_card_app.Services
 
 			_conn = new SQLiteAsyncConnection(_dbPath);
 			await _conn.CreateTableAsync<CollectionModel>();
+			await _conn.CreateTableAsync<CardDeckModel>();
 			// You can add more CreateTableAsync calls for other models
 		}
 

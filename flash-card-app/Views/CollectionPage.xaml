@@ -5,7 +5,7 @@
              xmlns:model="clr-namespace:flash_card_app.Models"
              xmlns:viewmodel="clr-namespace:flash_card_app.ViewModels"
              x:DataType="viewmodel:CollectionViewModel"
-             Title="CollectionPage">
+             Title="">
     <Grid
         x:Name="CollectionPageGrid"
         Margin="10">
@@ -18,13 +18,6 @@
             Padding="10"
             Spacing="20"
             Margin="0, 25, 0, 0">
-            <Entry
-                x:Name="CollectionName"
-                Placeholder="Collection Name"/>
-            <Button
-                x:Name="AddCollection"
-                Clicked="AddCollection_Clicked"
-                Text="Add Collection"/>
             <Button
                 x:Name="btnRefresh"
                 Command="{Binding GetCollectionsCommand}"

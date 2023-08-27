@@ -18,6 +18,9 @@ public static class MauiProgram
 			{
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+				fonts.AddFont("MaterialIcons-Regular.ttf", "MaterialIcons-Regular");
+				fonts.AddFont("RobotoMono-Regular.ttf", "RobotoMono-Regular");
+				fonts.AddFont("RobotoMono-SemiBold.ttf", "RobotoMono-SemiBold");
 			});
 
 		builder.UseMauiCommunityToolkit();
@@ -28,10 +31,15 @@ public static class MauiProgram
 
 		//ViewModels
 		builder.Services.AddSingleton<CollectionViewModel>();
+		builder.Services.AddSingleton<HomeViewModel>();
+		builder.Services.AddSingleton<CardDeckViewModel>();
+		builder.Services.AddSingleton<CreateCardDeckViewModel>();
 
 		//Views
 		builder.Services.AddSingleton<HomePage>();
 		builder.Services.AddSingleton<CollectionPage>();
+		builder.Services.AddSingleton<CardDeckPage>();
+		builder.Services.AddSingleton<CreateCardDeckPage>();
 
 
 #if DEBUG

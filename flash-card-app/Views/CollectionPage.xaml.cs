@@ -1,23 +1,20 @@
-using flash_card_app.Models;
 using flash_card_app.ViewModels;
 
 namespace flash_card_app.Views;
 public partial class CollectionPage : ContentPage
 {
-	private List<CollectionModel> collectionModels = new();
-
+	CollectionViewModel _viewModel;
 	public CollectionPage(CollectionViewModel viewModel)
 	{
 		InitializeComponent();
 		BindingContext = viewModel;
-		viewModel.GetCollectionsCommand.Execute(null);
+		_viewModel = viewModel;
 	}
 
-	private async void AddCollection_Clicked(object sender, EventArgs e)
+	protected override void OnAppearing()
 	{
-		//Shell.Current.GoToAsync(nameof(CreateCollectionPage));
-		var collectionRepository = await App.Context.GetRepository<CollectionModel>();
-		await collectionRepository.Add(new CollectionModel { Name = CollectionName.Text });
+		base.OnAppearing();
+		_viewModel.GetCollectionsCommand.Execute(null);
 	}
 
 }
