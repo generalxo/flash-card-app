@@ -1,13 +1,16 @@
 using flash_card_app.Models;
+using flash_card_app.ViewModels;
 
 namespace flash_card_app.Views;
 public partial class CollectionPage : ContentPage
 {
 	private List<CollectionModel> collectionModels = new();
 
-	public CollectionPage()
+	public CollectionPage(CollectionViewModel viewModel)
 	{
 		InitializeComponent();
+		BindingContext = viewModel;
+		viewModel.GetCollectionsCommand.Execute(null);
 	}
 
 	private async void AddCollection_Clicked(object sender, EventArgs e)
@@ -15,24 +18,6 @@ public partial class CollectionPage : ContentPage
 		//Shell.Current.GoToAsync(nameof(CreateCollectionPage));
 		var collectionRepository = await App.Context.GetRepository<CollectionModel>();
 		await collectionRepository.Add(new CollectionModel { Name = CollectionName.Text });
-	}
-
-	private void btnCancel_Clicked(object sender, EventArgs e)
-	{
-		Shell.Current.GoToAsync("..");
-	}
-
-	private async void btnRefresh_Clicked(object sender, EventArgs e)
-	{
-		collectionModels.Clear();
-
-		var collectionRepository = await App.Context.GetRepository<CollectionModel>();
-
-		var collections = await collectionRepository.GetAll();
-
-		collectionModels = collections.ToList();
-
-		collectionList.ItemsSource = collectionModels;
 	}
 
 }

@@ -2,15 +2,15 @@
 
 namespace flash_card_app.ViewModels
 {
-    public partial class BaseViewModel : ObservableObject
-    {
-        [ObservableProperty]
-        [NotifyPropertyChangedFor(nameof(IsNotBusy))]
-        bool isBusy;
+	public partial class BaseViewModel : ObservableObject
+	{
+		[ObservableProperty]
+		[NotifyPropertyChangedFor(nameof(IsNotBusy))]
+		bool isBusy;
 
-        [ObservableProperty]
-        string title;
+		[ObservableProperty]
+		string title;
 
-        public bool IsNotBusy => !IsBusy;
-    }
+		public bool IsNotBusy => !IsBusy;
+	}
 }

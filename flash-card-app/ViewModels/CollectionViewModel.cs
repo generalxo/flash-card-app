@@ -1,6 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using flash_card_app.Models;
-using flash_card_app.Services;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 
@@ -8,37 +7,51 @@ namespace flash_card_app.ViewModels
 {
 	public partial class CollectionViewModel : BaseViewModel
 	{
-		DbContext dbContext;
-		public ObservableCollection<CollectionModel> CollectionModels { get; } = new();
+		public ObservableCollection<CollectionModel> OCollectionModel { get; } = new();
 
-		public CollectionViewModel(DbContext dbContext)
+		public CollectionViewModel()
 		{
 			Title = "Collections";
-			this.dbContext = dbContext;
 		}
 
 		[RelayCommand]
-		public void GetCollectoins()
+		async Task GetCollectionsAsync()
 		{
 			if (IsBusy)
-			{
 				return;
-			}
 
 			try
 			{
 				IsBusy = true;
-				//var collection = dbContext.GetAllCollections();
+
+				OCollectionModel.Clear();
+
+				var repo = await App.Context.GetRepository<CollectionModel>();
+				var collections = await repo.GetAll();
+
+				foreach (var item in collections)
+				{
+					OCollectionModel.Add(item);
+				}
+
 			}
 			catch (Exception ex)
 			{
-				Debug.WriteLine(ex);
-				throw;
+				Debug.WriteLine(ex.Message);
+				await Shell.Current.DisplayAlert("GetCollectionsAsync Error", ex.Message, "OK");
 			}
 			finally
 			{
 				IsBusy = false;
 			}
+
 		}
+
+		[RelayCommand]
+		async Task GoBackAsync()
+		{
+			await Shell.Current.GoToAsync("..");
+		}
+
 	}
 }
