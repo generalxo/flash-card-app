@@ -24,12 +24,5 @@
             Text="Save"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
-        <Button
-            x:Name="CancelCreateCardDeckButton"
-            FontFamily="RobotoMono-Regular"
-            Text="Cancel"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" 
-            Command="{Binding GoBackCommand}"/>
     </VerticalStackLayout>
 </ContentPage>
