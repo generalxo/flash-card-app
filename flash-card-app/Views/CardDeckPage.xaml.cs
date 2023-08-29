@@ -11,4 +11,9 @@ public partial class CardDeckPage : ContentPage
 		BindingContext = viewModel;
 		_viewModel = viewModel;
 	}
+
+	protected override void OnAppearing()
+	{
+		_viewModel.GetCardDecksCommand.Execute(null);
+	}
 }

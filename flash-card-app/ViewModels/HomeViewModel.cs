@@ -17,12 +17,6 @@ namespace flash_card_app.ViewModels
 		}
 
 		[RelayCommand]
-		async Task NavigateToCollectionPage()
-		{
-			await Shell.Current.GoToAsync(nameof(CollectionPage));
-		}
-
-		[RelayCommand]
 		void ExitApp()
 		{
 			System.Environment.Exit(0);

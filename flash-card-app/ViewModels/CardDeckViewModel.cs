@@ -3,7 +3,6 @@ using flash_card_app.Models;
 using flash_card_app.Views;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-
 namespace flash_card_app.ViewModels
 {
 	public partial class CardDeckViewModel : BaseViewModel
@@ -27,7 +26,8 @@ namespace flash_card_app.ViewModels
 				OCardDeckModel.Clear();
 
 				var repo = await App.Context.GetRepository<CardDeckModel>();
-				var cardDecks = await repo.GetAll();
+				var collection = await repo.GetAll();
+				List<CardDeckModel> cardDecks = collection.ToList();
 
 				foreach (var item in cardDecks)
 				{
@@ -37,14 +37,12 @@ namespace flash_card_app.ViewModels
 			catch (Exception ex)
 			{
 				Debug.WriteLine(ex.Message);
-				await Shell.Current.DisplayAlert("GetCollectionsAsync Error", ex.Message, "OK");
+				await Shell.Current.DisplayAlert("GetCardDecksAsync Error", ex.Message, "OK");
 			}
 			finally
 			{
 				IsBusy = false;
 			}
-
-
 		}
 
 		[RelayCommand]

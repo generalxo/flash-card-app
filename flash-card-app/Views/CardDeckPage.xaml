@@ -20,7 +20,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <StackLayout
+        <StackLayout 
             Grid.Row="0"
             Padding="10"
             Spacing="20"
@@ -36,17 +36,10 @@
                 RowHeight="55">
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="model:CardDeckModel">
-                        <Frame HeightRequest="60">
-                            <Label
-                                Text="{Binding Name}"
-                                FontSize="Large"
-                                FontAttributes="Bold"
-                                VerticalOptions="Center"
-                                HorizontalOptions="Center"/>
-                        </Frame>
+                        <TextCell 
+                            Text="{Binding Name}"/>
                     </DataTemplate>
                 </ListView.ItemTemplate>
-                
             </ListView>
         </StackLayout>
     </Grid>

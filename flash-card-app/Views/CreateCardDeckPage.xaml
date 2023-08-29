@@ -6,10 +6,12 @@
              xmlns:viewmodel="clr-namespace:flash_card_app.ViewModels"
              x:DataType="viewmodel:CreateCardDeckViewModel"
              Title="{Binding Title}">
-    <VerticalStackLayout>
+    <VerticalStackLayout
+        Margin="5">
         <Label 
             FontFamily="RobotoMono-Regular"
             Text="Enter name of new Card Deck"
+            FontSize="30"  
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
         <Entry
@@ -17,12 +19,16 @@
             Text="{Binding CardDeckName, Mode=TwoWay}"
             FontFamily="RobotoMono-Regular"
             VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+            HorizontalOptions="Center" 
+            MinimumHeightRequest="50"
+            WidthRequest="280"
+            Margin="0, 25, 0,25"/>
         <Button
             x:Name="CreateCardDeckButton"
             FontFamily="RobotoMono-Regular"
             Text="Save"
             VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+            HorizontalOptions="Center" 
+            Command="{Binding CreateNewCardDeckCommand}"/>
     </VerticalStackLayout>
 </ContentPage>
