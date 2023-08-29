@@ -25,7 +25,6 @@ namespace flash_card_app.ViewModels
 				IsBusy = true;
 
 				await repo.Add(new CardDeckModel { Name = CardDeckName });
-
 			}
 			catch (Exception ex)
 			{
