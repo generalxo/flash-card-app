@@ -15,6 +15,7 @@ namespace flash_card_app.Models
         public string Answer { get; set; }
         [NotNull]
         public int Streak { get; set; } = 0;
+        public int CardDeckId { get; set; }
 
     }
 }

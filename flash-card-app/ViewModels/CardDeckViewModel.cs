@@ -5,57 +5,57 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 namespace flash_card_app.ViewModels
 {
-	public partial class CardDeckViewModel : BaseViewModel
-	{
-		public ObservableCollection<CardDeckModel> OCardDeckModel { get; } = new();
-		public CardDeckViewModel()
-		{
-			Title = "My Decks";
-		}
+    public partial class CardDeckViewModel : BaseViewModel
+    {
+        public ObservableCollection<CardDeckModel> OCardDeckModel { get; } = new();
+        public CardDeckViewModel()
+        {
+            Title = "My Decks";
+        }
 
-		[RelayCommand]
-		async Task GetCardDecks()
-		{
-			if (IsBusy)
-				return;
+        [RelayCommand]
+        async Task GetCardDecks()
+        {
+            if (IsBusy)
+                return;
 
-			try
-			{
-				IsBusy = true;
+            try
+            {
+                IsBusy = true;
 
-				OCardDeckModel.Clear();
+                OCardDeckModel.Clear();
 
-				var repo = await App.Context.GetRepository<CardDeckModel>();
-				var collection = await repo.GetAll();
-				List<CardDeckModel> cardDecks = collection.ToList();
+                var repo = await App.Context.GetRepository<CardDeckModel>();
+                var collection = await repo.GetAll();
+                List<CardDeckModel> cardDecks = collection.ToList();
 
-				foreach (var item in cardDecks)
-				{
-					OCardDeckModel.Add(item);
-				}
-			}
-			catch (Exception ex)
-			{
-				Debug.WriteLine(ex.Message);
-				await Shell.Current.DisplayAlert("GetCardDecksAsync Error", ex.Message, "OK");
-			}
-			finally
-			{
-				IsBusy = false;
-			}
-		}
+                foreach (var item in cardDecks)
+                {
+                    OCardDeckModel.Add(item);
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+                await Shell.Current.DisplayAlert("GetCardDecksAsync Error", ex.Message, "OK");
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
 
-		[RelayCommand]
-		async Task GoBackAsync()
-		{
-			await Shell.Current.GoToAsync("..");
-		}
+        [RelayCommand]
+        async Task NavigateToCreateCardDeckPage()
+        {
+            await Shell.Current.GoToAsync(nameof(CreateCardDeckPage));
+        }
 
-		[RelayCommand]
-		async Task NavigateToCreateCardDeckPage()
-		{
-			await Shell.Current.GoToAsync(nameof(CreateCardDeckPage));
-		}
+        [RelayCommand]
+        static async Task GoBackAsync()
+        {
+            await Shell.Current.GoToAsync("..");
+        }
 
-	}
+    }
 }

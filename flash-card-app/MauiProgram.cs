@@ -9,43 +9,41 @@ namespace flash_card_app;
 
 public static class MauiProgram
 {
-	public static MauiApp CreateMauiApp()
-	{
-		var builder = MauiApp.CreateBuilder();
-		builder
-			.UseMauiApp<App>()
-			.ConfigureFonts(fonts =>
-			{
-				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-				fonts.AddFont("MaterialIcons-Regular.ttf", "MaterialIcons-Regular");
-				fonts.AddFont("RobotoMono-Regular.ttf", "RobotoMono-Regular");
-				fonts.AddFont("RobotoMono-SemiBold.ttf", "RobotoMono-SemiBold");
-			});
+    public static MauiApp CreateMauiApp()
+    {
+        var builder = MauiApp.CreateBuilder();
+        builder
+            .UseMauiApp<App>()
+            .ConfigureFonts(fonts =>
+            {
+                fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
+                fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+                fonts.AddFont("MaterialIcons-Regular.ttf", "MaterialIcons-Regular");
+                fonts.AddFont("RobotoMono-Regular.ttf", "RobotoMono-Regular");
+                fonts.AddFont("RobotoMono-SemiBold.ttf", "RobotoMono-SemiBold");
+            });
 
-		builder.UseMauiCommunityToolkit();
+        builder.UseMauiCommunityToolkit();
 
-		//DataBase
-		string dbPath = FileAccessHelper.GetLocalFilePath("appDb.db3");
-		builder.Services.AddSingleton(s => ActivatorUtilities.CreateInstance<DbContext>(s, dbPath));
+        //DataBase
+        string dbPath = FileAccessHelper.GetLocalFilePath("appDb.db3");
+        builder.Services.AddSingleton(s => ActivatorUtilities.CreateInstance<DbContext>(s, dbPath));
 
-		//ViewModels
-		//builder.Services.AddSingleton<CollectionViewModel>();
-		builder.Services.AddSingleton<HomeViewModel>();
-		builder.Services.AddSingleton<CardDeckViewModel>();
-		builder.Services.AddSingleton<CreateCardDeckViewModel>();
+        //ViewModels
+        builder.Services.AddSingleton<HomeViewModel>();
+        builder.Services.AddSingleton<CardDeckViewModel>();
+        builder.Services.AddSingleton<CreateCardDeckViewModel>();
 
-		//Views
-		builder.Services.AddSingleton<HomePage>();
-		//builder.Services.AddSingleton<CollectionPage>();
-		builder.Services.AddSingleton<CardDeckPage>();
-		builder.Services.AddSingleton<CreateCardDeckPage>();
+        //Views
+        builder.Services.AddSingleton<HomePage>();
+        builder.Services.AddSingleton<CardDeckPage>();
+        builder.Services.AddSingleton<CreateCardDeckPage>();
 
 
 #if DEBUG
-		builder.Logging.AddDebug();
+        builder.Logging.AddDebug();
 #endif
 
-		return builder.Build();
-	}
+        return builder.Build();
+    }
 }

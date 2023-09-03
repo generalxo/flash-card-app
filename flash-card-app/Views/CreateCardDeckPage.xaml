@@ -6,6 +6,9 @@
              xmlns:viewmodel="clr-namespace:flash_card_app.ViewModels"
              x:DataType="viewmodel:CreateCardDeckViewModel"
              Title="{Binding Title}">
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior Command="{Binding GoBackCommand}" />
+    </Shell.BackButtonBehavior>
     <VerticalStackLayout
         Margin="5">
         <Label 

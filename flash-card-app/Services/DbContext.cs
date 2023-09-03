@@ -5,33 +5,32 @@ using SQLite;
 
 namespace flash_card_app.Services
 {
-	public class DbContext
-	{
-		private SQLiteAsyncConnection _conn;
-		string _dbPath;
+    public class DbContext
+    {
+        private SQLiteAsyncConnection _conn;
+        readonly string _dbPath;
 
-		public string StatusMessage { get; set; }
+        public string StatusMessage { get; set; }
 
-		public DbContext(string dbPath)
-		{
-			_dbPath = dbPath;
-		}
+        public DbContext(string dbPath)
+        {
+            _dbPath = dbPath;
+        }
 
-		private async Task Init()
-		{
-			if (_conn != null)
-				return;
+        private async Task Init()
+        {
+            if (_conn != null)
+                return;
 
-			_conn = new SQLiteAsyncConnection(_dbPath);
-			await _conn.CreateTableAsync<CollectionModel>();
-			await _conn.CreateTableAsync<CardDeckModel>();
-			// You can add more CreateTableAsync calls for other models
-		}
+            _conn = new SQLiteAsyncConnection(_dbPath);
+            await _conn.CreateTableAsync<CardDeckModel>();
+            // You can add more CreateTableAsync calls for other models
+        }
 
-		public async Task<IRepository<T>> GetRepository<T>() where T : class, new()
-		{
-			await Init();
-			return new Repository<T>(_conn);
-		}
-	}
+        public async Task<IRepository<T>> GetRepository<T>() where T : class, new()
+        {
+            await Init();
+            return new Repository<T>(_conn);
+        }
+    }
 }
