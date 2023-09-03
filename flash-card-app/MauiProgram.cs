@@ -33,11 +33,13 @@ public static class MauiProgram
         builder.Services.AddSingleton<HomeViewModel>();
         builder.Services.AddSingleton<CardDeckViewModel>();
         builder.Services.AddSingleton<CreateCardDeckViewModel>();
+        builder.Services.AddTransient<CardsViewModel>();
 
         //Views
         builder.Services.AddSingleton<HomePage>();
         builder.Services.AddSingleton<CardDeckPage>();
         builder.Services.AddSingleton<CreateCardDeckPage>();
+        builder.Services.AddTransient<CardsPage>();
 
 
 #if DEBUG

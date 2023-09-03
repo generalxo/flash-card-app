@@ -30,6 +30,11 @@
                         <Frame
                             HeightRequest="60"
                             Margin="5">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    CommandParameter="{Binding .}"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:CardDeckViewModel}}, Path=NavigateToCardsPageCommand}" />
+                            </Frame.GestureRecognizers>
                             <Label
                                 Text="{Binding Name}"/>
                         </Frame>

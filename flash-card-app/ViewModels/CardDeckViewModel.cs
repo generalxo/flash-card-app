@@ -52,6 +52,19 @@ namespace flash_card_app.ViewModels
         }
 
         [RelayCommand]
+        async Task NavigateToCardsPage(CardDeckModel cardDeckModel)
+        {
+            if (cardDeckModel is null)
+                return;
+
+            await Shell.Current.GoToAsync($"{nameof(CardsPage)}", true,
+                new Dictionary<string, object>
+                {
+                    {"CardDeck", cardDeckModel }
+                });
+        }
+
+        [RelayCommand]
         static async Task GoBackAsync()
         {
             await Shell.Current.GoToAsync("..");
