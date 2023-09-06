@@ -31,15 +31,18 @@ public static class MauiProgram
 
         //ViewModels
         builder.Services.AddSingleton<HomeViewModel>();
-        builder.Services.AddSingleton<CardDeckViewModel>();
-        builder.Services.AddSingleton<CreateCardDeckViewModel>();
+        builder.Services.AddTransient<CardDeckViewModel>();
+        builder.Services.AddTransient<CreateCardDeckViewModel>();
         builder.Services.AddTransient<CardsViewModel>();
+        builder.Services.AddTransient<CreateCardViewModel>();
+
 
         //Views
         builder.Services.AddSingleton<HomePage>();
-        builder.Services.AddSingleton<CardDeckPage>();
-        builder.Services.AddSingleton<CreateCardDeckPage>();
+        builder.Services.AddTransient<CardDeckPage>();
+        builder.Services.AddTransient<CreateCardDeckPage>();
         builder.Services.AddTransient<CardsPage>();
+        builder.Services.AddTransient<CreateCardPage>();
 
 
 #if DEBUG

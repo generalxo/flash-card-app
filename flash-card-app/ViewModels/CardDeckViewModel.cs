@@ -57,7 +57,7 @@ namespace flash_card_app.ViewModels
             if (cardDeckModel is null)
                 return;
 
-            await Shell.Current.GoToAsync($"{nameof(CardsPage)}", true,
+            await Shell.Current.GoToAsync(nameof(CardsPage), true,
                 new Dictionary<string, object>
                 {
                     {"CardDeck", cardDeckModel }
