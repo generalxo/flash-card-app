@@ -30,15 +30,14 @@ public static class MauiProgram
         builder.Services.AddSingleton(s => ActivatorUtilities.CreateInstance<DbContext>(s, dbPath));
 
         //ViewModels
-        builder.Services.AddSingleton<HomeViewModel>();
+        builder.Services.AddTransient<HomeViewModel>();
         builder.Services.AddTransient<CardDeckViewModel>();
         builder.Services.AddTransient<CreateCardDeckViewModel>();
         builder.Services.AddTransient<CardsViewModel>();
         builder.Services.AddTransient<CreateCardViewModel>();
 
-
         //Views
-        builder.Services.AddSingleton<HomePage>();
+        builder.Services.AddTransient<HomePage>();
         builder.Services.AddTransient<CardDeckPage>();
         builder.Services.AddTransient<CreateCardDeckPage>();
         builder.Services.AddTransient<CardsPage>();

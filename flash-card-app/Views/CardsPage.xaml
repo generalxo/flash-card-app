@@ -7,7 +7,9 @@
              x:DataType="viewmodel:CardsViewModel"
              Title="{Binding CardDeck.Name}">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Command="{Binding NavigateToCreateCardPageCommand}">
+        <ToolbarItem 
+            Command="{Binding NavigateToCreateCardPageCommand}" 
+            CommandParameter="{Binding CardDeck.Id}">
             <ToolbarItem.IconImageSource>
                 <FontImageSource
                 FontFamily="MaterialIcons-Regular"
@@ -15,10 +17,21 @@
             </ToolbarItem.IconImageSource>
         </ToolbarItem>
     </ContentPage.ToolbarItems>
-    <VerticalStackLayout>
-        <Label 
-            Text="Here the cards of a deck will be listed"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+    <CollectionView
+        SelectionMode="None"
+        ItemsSource="{Binding OFlashCardModel}">
+        <CollectionView.ItemTemplate>
+            <DataTemplate
+                x:DataType="model:FlashCardModel">
+                <VerticalStackLayout>
+                    <Frame
+                        HeightRequest="60"
+                        Margin="5">
+                        <Label 
+                            Text="{Binding Title}"/>
+                    </Frame>
+                </VerticalStackLayout>
+            </DataTemplate>
+        </CollectionView.ItemTemplate>
+    </CollectionView>
 </ContentPage>

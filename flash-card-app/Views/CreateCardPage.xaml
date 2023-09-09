@@ -6,10 +6,43 @@
              xmlns:viewmodel="clr-namespace:flash_card_app.ViewModels"
              x:DataType="viewmodel:CreateCardViewModel"
              Title="{Binding Title}">
-    <VerticalStackLayout>
-        <Label 
-            Text="Here you will Create a card"
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <VerticalStackLayout>
+            <!--Title-->
+            <Label 
+                Text="Enter Title"
+                Style="{StaticResource Key=StyledLabel}"
+                Margin="0, 25, 0, 0"/>
+            <Entry
+                Style="{StaticResource Key=StyledEntry}"
+                Text="{Binding FlashCard.Title, Mode=TwoWay}"/>
+            <!--Question-->
+            <Label 
+                Text="Enter Question"
+                Style="{StaticResource Key=StyledLabel}"/>
+            <Entry
+                Style="{StaticResource Key=StyledEntry}"
+                Text="{Binding FlashCard.Question, Mode=TwoWay}"/>
+            <!--Answer-->
+            <Label 
+                Text="Enter Answer"
+                Style="{StaticResource Key=StyledLabel}"/>
+            <Entry
+                Style="{StaticResource Key=StyledEntry}"
+                Text="{Binding FlashCard.Answer, Mode=TwoWay}"/>
+            
+        </VerticalStackLayout>
+        <Button 
+            Grid.Row="1"
+            FontFamily="RobotoMono-Regular"
+            Text="Save"
             VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+            HorizontalOptions="Center" 
+            Margin="0,0,0,25"
+            Command="{Binding CreateNewFlashCardCommand}"/>
+    </Grid>
 </ContentPage>

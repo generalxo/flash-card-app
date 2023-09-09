@@ -39,6 +39,7 @@ namespace flash_card_app.ViewModels
                 foreach (var item in flashCards)
                 {
                     OFlashCardModel.Add(item);
+                    Debug.WriteLine($"Title: {item.Title}, CardDeckId: {item.CardDeckId}");
                 }
             }
             catch (Exception ex)
@@ -55,7 +56,7 @@ namespace flash_card_app.ViewModels
         [RelayCommand]
         async Task NavigateToCreateCardPage()
         {
-            await Shell.Current.GoToAsync(nameof(CreateCardPage));
+            await Shell.Current.GoToAsync($"{nameof(CreateCardPage)}?Id={CardDeck.Id}");
         }
 
     }

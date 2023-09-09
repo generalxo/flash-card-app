@@ -5,13 +5,19 @@ using System.Diagnostics;
 
 namespace flash_card_app.ViewModels
 {
+    [QueryProperty("Id", "Id")]
     public partial class CreateCardViewModel : BaseViewModel
     {
         [ObservableProperty]
-        FlashCardModel flashCardModel;
+        FlashCardModel flashCard;
+
+        [ObservableProperty]
+        int id;
+
         public CreateCardViewModel()
         {
             Title = "Create a Card";
+            FlashCard = new FlashCardModel();
         }
 
         //This code has not been implemented or tested yet
@@ -21,6 +27,9 @@ namespace flash_card_app.ViewModels
         {
             var repo = await App.Context.GetRepository<FlashCardModel>();
 
+            //Debug.WriteLine($"Title: {FlashCardModel.Title} Question: {FlashCardModel.Question} Answer: {FlashCardModel.Answer} Id: {Id}");
+
+
             if (IsBusy)
                 return;
 
@@ -28,15 +37,18 @@ namespace flash_card_app.ViewModels
             {
                 IsBusy = true;
 
-                if (FlashCardModel.Title.Length > 0 && FlashCardModel.Question.Length > 0 && FlashCardModel.Answer.Length > 0 && FlashCardModel.CardDeckId != 0)
+
+                if (FlashCard.Title.Length > 0 && FlashCard.Question.Length > 0 && FlashCard.Answer.Length > 0)
                 {
                     await repo.Add(new FlashCardModel
                     {
-                        Title = FlashCardModel.Title,
-                        Question = FlashCardModel.Question,
-                        Answer = FlashCardModel.Answer,
-                        CardDeckId = FlashCardModel.CardDeckId
+                        Title = FlashCard.Title,
+                        Question = FlashCard.Question,
+                        Answer = FlashCard.Answer,
+                        CardDeckId = Id,
+                        Streak = 0
                     });
+
                 }
                 else
                 {
@@ -51,10 +63,10 @@ namespace flash_card_app.ViewModels
             finally
             {
                 IsBusy = false;
-                FlashCardModel.Title = string.Empty;
-                FlashCardModel.Question = string.Empty;
-                FlashCardModel.Answer = string.Empty;
-                FlashCardModel.CardDeckId = 0;
+                FlashCard.Title = string.Empty;
+                FlashCard.Question = string.Empty;
+                FlashCard.Answer = string.Empty;
+                FlashCard.CardDeckId = 0;
 
                 await Shell.Current.GoToAsync("..");
             }
