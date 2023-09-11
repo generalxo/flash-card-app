@@ -32,7 +32,7 @@
                 x:Name="btnStart"
                 Text="Card Decks"
                 FontFamily="RobotoMono-Regular"
-                Command="{Binding NavigateToCardDeckPageCommand}"
+                Command="{Binding NavigateToDeckPageCommand}"
                 HeightRequest="70"
                 WidthRequest="280"
                 Margin="0, 40, 0, 0"/>

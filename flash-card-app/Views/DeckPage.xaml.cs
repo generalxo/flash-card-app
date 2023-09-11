@@ -4,8 +4,8 @@ namespace flash_card_app.Views;
 
 public partial class CardDeckPage : ContentPage
 {
-    private readonly CardDeckViewModel _viewModel;
-    public CardDeckPage(CardDeckViewModel viewModel)
+    private readonly DeckViewModel _viewModel;
+    public CardDeckPage(DeckViewModel viewModel)
     {
         InitializeComponent();
         BindingContext = viewModel;

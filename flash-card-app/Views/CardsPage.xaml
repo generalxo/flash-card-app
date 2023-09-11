@@ -5,11 +5,11 @@
              xmlns:model="clr-namespace:flash_card_app.Models"
              xmlns:viewmodel="clr-namespace:flash_card_app.ViewModels"
              x:DataType="viewmodel:CardsViewModel"
-             Title="{Binding CardDeck.Name}">
+             Title="{Binding Deck.Name}">
     <ContentPage.ToolbarItems>
         <ToolbarItem 
             Command="{Binding NavigateToCreateCardPageCommand}" 
-            CommandParameter="{Binding CardDeck.Id}">
+            CommandParameter="{Binding Deck.Id}">
             <ToolbarItem.IconImageSource>
                 <FontImageSource
                 FontFamily="MaterialIcons-Regular"

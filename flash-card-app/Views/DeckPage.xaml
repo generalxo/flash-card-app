@@ -4,10 +4,10 @@
              x:Class="flash_card_app.Views.CardDeckPage"
              xmlns:model="clr-namespace:flash_card_app.Models"
              xmlns:viewmodel="clr-namespace:flash_card_app.ViewModels"
-             x:DataType="viewmodel:CardDeckViewModel"
+             x:DataType="viewmodel:DeckViewModel"
              Title="">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Command="{Binding NavigateToCreateCardDeckPageCommand}">
+        <ToolbarItem Command="{Binding NavigateToCreateDeckPageCommand}">
             <ToolbarItem.IconImageSource>
                 <FontImageSource
                     FontFamily="MaterialIcons-Regular"
@@ -22,10 +22,10 @@
         </Grid.RowDefinitions>
         <CollectionView
             SelectionMode="None"
-            ItemsSource="{Binding OCardDeckModel}">
+            ItemsSource="{Binding ODeckModel}">
             <CollectionView.ItemTemplate>
                 <DataTemplate 
-                    x:DataType="model:CardDeckModel">
+                    x:DataType="model:DeckModel">
                     <VerticalStackLayout>
                         <Frame
                             HeightRequest="60"
@@ -33,7 +33,7 @@
                             <Frame.GestureRecognizers>
                                 <TapGestureRecognizer
                                     CommandParameter="{Binding .}"
-                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:CardDeckViewModel}}, Path=NavigateToCardsPageCommand}" />
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:DeckViewModel}}, Path=NavigateToCardsPageCommand}" />
                             </Frame.GestureRecognizers>
                             <Label
                                 Text="{Binding Name}"/>

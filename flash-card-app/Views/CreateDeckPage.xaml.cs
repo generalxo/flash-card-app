@@ -2,9 +2,9 @@ using flash_card_app.ViewModels;
 
 namespace flash_card_app.Views;
 
-public partial class CreateCardDeckPage : ContentPage
+public partial class CreateDeckPage : ContentPage
 {
-	public CreateCardDeckPage(CreateCardDeckViewModel viewModel)
+	public CreateDeckPage(CreateDeckViewModel viewModel)
 	{
 		InitializeComponent();
 		BindingContext = viewModel;

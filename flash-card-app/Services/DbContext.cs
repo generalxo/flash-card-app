@@ -23,7 +23,7 @@ namespace flash_card_app.Services
                 return;
 
             _conn = new SQLiteAsyncConnection(_dbPath);
-            await _conn.CreateTableAsync<CardDeckModel>();
+            await _conn.CreateTableAsync<DeckModel>();
             await _conn.CreateTableAsync<FlashCardModel>();
             // You can add more CreateTableAsync calls for other models
         }
