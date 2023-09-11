@@ -1,5 +1,7 @@
 ﻿using SQLite;
 
+//Notes: I should rename this to DeckModel
+
 namespace flash_card_app.Models
 {
     [Table("CardDeck")]

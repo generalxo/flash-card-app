@@ -5,6 +5,8 @@ using flash_card_app.Views;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 
+//Notes: Create a tapevent on a card that navigates to a edit card page
+
 namespace flash_card_app.ViewModels
 {
     [QueryProperty("CardDeck", "CardDeck")]
@@ -18,8 +20,6 @@ namespace flash_card_app.ViewModels
         {
 
         }
-
-        //This code has mostly not been implemented or tested yet
 
         [RelayCommand]
         async Task GetCards()

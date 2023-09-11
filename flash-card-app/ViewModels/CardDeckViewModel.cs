@@ -3,6 +3,8 @@ using flash_card_app.Models;
 using flash_card_app.Views;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+//Notes: We need some way to edit the card deck & be able to delete it. All cards that are in that deck also be deleted. First Delete Cards then The Deck.
+
 namespace flash_card_app.ViewModels
 {
     public partial class CardDeckViewModel : BaseViewModel

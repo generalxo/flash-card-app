@@ -20,7 +20,6 @@ namespace flash_card_app.ViewModels
             FlashCard = new FlashCardModel();
         }
 
-        //This code has not been implemented or tested yet
 
         [RelayCommand]
         async Task CreateNewFlashCard() //This will be executed when save btn is clicked
@@ -28,7 +27,6 @@ namespace flash_card_app.ViewModels
             var repo = await App.Context.GetRepository<FlashCardModel>();
 
             //Debug.WriteLine($"Title: {FlashCardModel.Title} Question: {FlashCardModel.Question} Answer: {FlashCardModel.Answer} Id: {Id}");
-
 
             if (IsBusy)
                 return;
@@ -38,7 +36,7 @@ namespace flash_card_app.ViewModels
                 IsBusy = true;
 
 
-                if (FlashCard.Title.Length > 0 && FlashCard.Question.Length > 0 && FlashCard.Answer.Length > 0)
+                if (FlashCard.Title.Length > 0 && FlashCard.Question.Length > 0 && FlashCard.Answer.Length > 0 && Id != 0)
                 {
                     await repo.Add(new FlashCardModel
                     {
