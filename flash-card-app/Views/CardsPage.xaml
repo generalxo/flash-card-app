@@ -25,10 +25,21 @@
                 x:DataType="model:FlashCardModel">
                 <VerticalStackLayout>
                     <Frame
-                        HeightRequest="60"
+                        HeightRequest="110"
                         Margin="5">
-                        <Label 
-                            Text="{Binding Title}"/>
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer 
+                                CommandParameter="{Binding .}"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:CardsViewModel}}, Path=NavigateToEditCardPageCommand}" />
+                        </Frame.GestureRecognizers>
+                        <VerticalStackLayout>
+                            <Label
+                                Text="{Binding Title}" />
+                            <Label
+                                Text="{Binding Question}" />
+                            <Label
+                                Text="{Binding Answer}" />
+                        </VerticalStackLayout>
                     </Frame>
                 </VerticalStackLayout>
             </DataTemplate>

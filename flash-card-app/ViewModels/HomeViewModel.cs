@@ -13,7 +13,7 @@ namespace flash_card_app.ViewModels
 		[RelayCommand]
 		async Task NavigateToDeckPage()
 		{
-			await Shell.Current.GoToAsync(nameof(CardDeckPage));
+			await Shell.Current.GoToAsync(nameof(DeckPage));
 		}
 
 		[RelayCommand]

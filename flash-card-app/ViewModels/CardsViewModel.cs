@@ -59,5 +59,15 @@ namespace flash_card_app.ViewModels
 			await Shell.Current.GoToAsync($"{nameof(CreateCardPage)}?Id={Deck.Id}");
 		}
 
+		[RelayCommand]
+		async Task NavigateToEditCardPage(FlashCardModel flashCard)
+		{
+			await Shell.Current.GoToAsync(nameof(EditCardPage), true,
+				new Dictionary<string, object>
+				{
+					{"FlashCard", flashCard }
+				});
+		}
+
 	}
 }
