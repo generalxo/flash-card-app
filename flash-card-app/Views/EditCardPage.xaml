@@ -5,11 +5,49 @@
              xmlns:model="clr-namespace:flash_card_app.Models"
              xmlns:viewmodel="clr-namespace:flash_card_app.ViewModels"
              x:DataType="viewmodel:EditCardViewModel"
-             Title="EditCardPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
+             Title="Edit Card">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid RowDefinitions="*, *, *">
+            <VerticalStackLayout Grid.Row="0">
+                <!--Title-->
+                <Label 
+                    Text="Enter Title"
+                    Style="{StaticResource Key=StyledLabel}"
+                    Margin="0, 25, 0, 0"/>
+                <Editor
+                    Text="{Binding FlashCard.Title, Mode=TwoWay}"
+                    Style="{StaticResource StyledEditor}"/>
+            </VerticalStackLayout>
+            <VerticalStackLayout Grid.Row="1">
+                <!--Question-->
+                <Label 
+                    Text="Enter Question"
+                    Style="{StaticResource Key=StyledLabel}"/>
+                <Editor
+                    Text="{Binding FlashCard.Question, Mode=TwoWay}"
+                    Style="{StaticResource StyledEditor}"/>
+            </VerticalStackLayout>
+            <VerticalStackLayout Grid.Row="2">
+                <!--Answer-->
+                <Label 
+                    Text="Enter Answer"
+                    Style="{StaticResource Key=StyledLabel}"/>
+                <Editor
+                    Text="{Binding FlashCard.Answer, Mode=TwoWay}"
+                    Style="{StaticResource StyledEditor}"/>
+            </VerticalStackLayout>
+        </Grid>
+        <Button 
+            Grid.Row="1"
+            FontFamily="RobotoMono-Regular"
+            Text="Save"
             VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+            HorizontalOptions="Center" 
+            Margin="0,0,0,25"
+            Command="{Binding EditCardCommand}"/>
+    </Grid>
 </ContentPage>

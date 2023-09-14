@@ -11,31 +11,36 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <VerticalStackLayout>
-            <!--Title-->
-            <Label 
-                Text="Enter Title"
-                Style="{StaticResource Key=StyledLabel}"
-                Margin="0, 25, 0, 0"/>
-            <Entry
-                Style="{StaticResource Key=StyledEntry}"
-                Text="{Binding FlashCard.Title, Mode=TwoWay}"/>
-            <!--Question-->
-            <Label 
-                Text="Enter Question"
-                Style="{StaticResource Key=StyledLabel}"/>
-            <Entry
-                Style="{StaticResource Key=StyledEntry}"
-                Text="{Binding FlashCard.Question, Mode=TwoWay}"/>
-            <!--Answer-->
-            <Label 
-                Text="Enter Answer"
-                Style="{StaticResource Key=StyledLabel}"/>
-            <Entry
-                Style="{StaticResource Key=StyledEntry}"
-                Text="{Binding FlashCard.Answer, Mode=TwoWay}"/>
-            
-        </VerticalStackLayout>
+        <Grid RowDefinitions="*, *, *">
+            <VerticalStackLayout Grid.Row="0">
+                <!--Title-->
+                <Label 
+                    Text="Enter Title"
+                    Style="{StaticResource Key=StyledLabel}"
+                    Margin="0, 25, 0, 0"/>
+                <Editor
+                    Text="{Binding FlashCard.Title, Mode=TwoWay}"
+                    Style="{StaticResource StyledEditor}"/>
+            </VerticalStackLayout>
+            <VerticalStackLayout Grid.Row="1">
+                <!--Question-->
+                <Label 
+                    Text="Enter Question"
+                    Style="{StaticResource Key=StyledLabel}"/>
+                <Editor
+                    Text="{Binding FlashCard.Question, Mode=TwoWay}"
+                    Style="{StaticResource StyledEditor}"/>
+            </VerticalStackLayout>
+            <VerticalStackLayout Grid.Row="2">
+                <!--Answer-->
+                <Label
+                    Text="Enter Answer"
+                    Style="{StaticResource Key=StyledLabel}"/>
+                <Editor
+                    Text="{Binding FlashCard.Answer, Mode=TwoWay}"
+                    Style="{StaticResource StyledEditor}"/>
+            </VerticalStackLayout>
+        </Grid>
         <Button 
             Grid.Row="1"
             FontFamily="RobotoMono-Regular"

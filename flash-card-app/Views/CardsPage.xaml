@@ -32,14 +32,23 @@
                                 CommandParameter="{Binding .}"
                                 Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:CardsViewModel}}, Path=NavigateToEditCardPageCommand}" />
                         </Frame.GestureRecognizers>
-                        <VerticalStackLayout>
+                        <Grid
+                            RowSpacing="2">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
                             <Label
+                                Grid.Row="0"
                                 Text="{Binding Title}" />
                             <Label
+                                Grid.Row="1"
                                 Text="{Binding Question}" />
                             <Label
+                                Grid.Row="2"
                                 Text="{Binding Answer}" />
-                        </VerticalStackLayout>
+                        </Grid>
                     </Frame>
                 </VerticalStackLayout>
             </DataTemplate>
