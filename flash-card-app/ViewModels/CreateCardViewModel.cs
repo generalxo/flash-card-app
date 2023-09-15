@@ -1,13 +1,14 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using flash_card_app.Models;
-using System.Diagnostics;
 
 namespace flash_card_app.ViewModels
 {
     [QueryProperty("Id", "Id")]
     public partial class CreateCardViewModel : BaseViewModel
     {
+        private readonly Helpers.ErrorHandler errorHandler = new();
+
         [ObservableProperty]
         FlashCardModel flashCard;
 
@@ -53,8 +54,7 @@ namespace flash_card_app.ViewModels
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(ex.Message);
-                await Shell.Current.DisplayAlert("Create Card Error", ex.Message, "OK");
+                await errorHandler.DisplayErrorMsgAsync(ex);
             }
             finally
             {

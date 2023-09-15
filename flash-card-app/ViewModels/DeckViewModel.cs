@@ -2,75 +2,75 @@
 using flash_card_app.Models;
 using flash_card_app.Views;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 //Notes: We need some way to edit the card deck & be able to delete it. All cards that are in that deck also be deleted. First Delete Cards then The Deck.
 
 namespace flash_card_app.ViewModels
 {
-	public partial class DeckViewModel : BaseViewModel
-	{
-		public ObservableCollection<DeckModel> ODeckModel { get; } = new();
-		public DeckViewModel()
-		{
-			Title = "My Decks";
-		}
+    public partial class DeckViewModel : BaseViewModel
+    {
+        private readonly Helpers.ErrorHandler errorHandler = new();
 
-		[RelayCommand]
-		async Task GetCardDecks()
-		{
-			if (IsBusy)
-				return;
+        public ObservableCollection<DeckModel> ODeckModel { get; } = new();
+        public DeckViewModel()
+        {
+            Title = "My Decks";
+        }
 
-			try
-			{
-				IsBusy = true;
+        [RelayCommand]
+        async Task GetCardDecks()
+        {
+            if (IsBusy)
+                return;
 
-				ODeckModel.Clear();
+            try
+            {
+                IsBusy = true;
 
-				var repo = await App.Context.GetRepository<DeckModel>();
-				var collection = await repo.GetAll();
-				List<DeckModel> decks = collection.ToList();
+                ODeckModel.Clear();
 
-				foreach (var item in decks)
-				{
-					ODeckModel.Add(item);
-				}
-			}
-			catch (Exception ex)
-			{
-				Debug.WriteLine(ex.Message);
-				await Shell.Current.DisplayAlert("GetDecksAsync Error", ex.Message, "OK");
-			}
-			finally
-			{
-				IsBusy = false;
-			}
-		}
+                var repo = await App.Context.GetRepository<DeckModel>();
+                var collection = await repo.GetAll();
+                List<DeckModel> decks = collection.ToList();
 
-		[RelayCommand]
-		async Task NavigateToCreateDeckPage()
-		{
-			await Shell.Current.GoToAsync(nameof(CreateDeckPage));
-		}
+                foreach (var item in decks)
+                {
+                    ODeckModel.Add(item);
+                }
+            }
+            catch (Exception ex)
+            {
+                await errorHandler.DisplayErrorMsgAsync(ex);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
 
-		[RelayCommand]
-		async Task NavigateToCardsPage(DeckModel deckModel)
-		{
-			if (deckModel is null)
-				return;
+        [RelayCommand]
+        async Task NavigateToCreateDeckPage()
+        {
+            await Shell.Current.GoToAsync(nameof(CreateDeckPage));
+        }
 
-			await Shell.Current.GoToAsync(nameof(CardsPage), true,
-				new Dictionary<string, object>
-				{
-					{"Deck", deckModel }
-				});
-		}
+        [RelayCommand]
+        async Task NavigateToCardsPage(DeckModel deckModel)
+        {
+            if (deckModel is null)
+                return;
 
-		[RelayCommand]
-		static async Task GoBackAsync()
-		{
-			await Shell.Current.GoToAsync("..");
-		}
+            await Shell.Current.GoToAsync(nameof(CardsPage), true,
+                new Dictionary<string, object>
+                {
+                    {"Deck", deckModel }
+                });
+        }
 
-	}
+        [RelayCommand]
+        static async Task GoBackAsync()
+        {
+            await Shell.Current.GoToAsync("..");
+        }
+
+    }
 }

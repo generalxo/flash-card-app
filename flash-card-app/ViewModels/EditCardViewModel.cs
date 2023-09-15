@@ -7,6 +7,8 @@ namespace flash_card_app.ViewModels
     [QueryProperty("FlashCard", "FlashCard")]
     public partial class EditCardViewModel : BaseViewModel
     {
+        private readonly Helpers.ErrorHandler errorHandler = new();
+
         [ObservableProperty]
         FlashCardModel flashCard;
         public EditCardViewModel()
@@ -31,7 +33,7 @@ namespace flash_card_app.ViewModels
             }
             catch (Exception ex)
             {
-                await Shell.Current.DisplayAlert("Edit Card Error", ex.Message, "OK");
+                await errorHandler.DisplayErrorMsgAsync(ex);
             }
             finally
             {
@@ -46,19 +48,19 @@ namespace flash_card_app.ViewModels
             if (IsBusy is true)
                 return;
 
-            bool wasDeleted = false;
+            bool deleteCard = false;
 
             try
             {
                 IsBusy = true;
 
-                bool result = await Shell.Current.DisplayAlert("Delete Card", "Are you sure you want to delete this card?", "Yes", "No");
-                //Debug.WriteLine($"Result: {result}");
-                if (result is true)
+                deleteCard = await Shell.Current.DisplayAlert("Delete Card", "Are you sure you want to delete this card?", "Yes", "No");
+
+                if (deleteCard is true)
                 {
                     var repo = await App.Context.GetRepository<FlashCardModel>();
                     await repo.Delete(FlashCard.Id);
-                    wasDeleted = true;
+                    deleteCard = true;
                 }
                 else
                 {
@@ -68,13 +70,13 @@ namespace flash_card_app.ViewModels
             }
             catch (Exception ex)
             {
-                await Shell.Current.DisplayAlert("Edit Card Error", ex.Message, "OK");
+                await errorHandler.DisplayErrorMsgAsync(ex);
             }
             finally
             {
                 IsBusy = false;
 
-                if (wasDeleted is true)
+                if (deleteCard is true)
                 {
                     await Shell.Current.GoToAsync("..");
                 }
