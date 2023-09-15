@@ -6,6 +6,16 @@
              xmlns:viewmodel="clr-namespace:flash_card_app.ViewModels"
              x:DataType="viewmodel:EditCardViewModel"
              Title="Edit Card">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem
+            Command="{Binding DeleteCardCommand}">
+            <ToolbarItem.IconImageSource>
+                <FontImageSource
+                    FontFamily="MaterialIcons-Regular"
+                    Glyph="&#xe872;"/>
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>

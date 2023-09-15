@@ -40,5 +40,46 @@ namespace flash_card_app.ViewModels
             }
         }
 
+        [RelayCommand]
+        async Task DeleteCard()
+        {
+            if (IsBusy is true)
+                return;
+
+            bool wasDeleted = false;
+
+            try
+            {
+                IsBusy = true;
+
+                bool result = await Shell.Current.DisplayAlert("Delete Card", "Are you sure you want to delete this card?", "Yes", "No");
+                //Debug.WriteLine($"Result: {result}");
+                if (result is true)
+                {
+                    var repo = await App.Context.GetRepository<FlashCardModel>();
+                    await repo.Delete(FlashCard.Id);
+                    wasDeleted = true;
+                }
+                else
+                {
+                    //Nothing should happen here
+                }
+
+            }
+            catch (Exception ex)
+            {
+                await Shell.Current.DisplayAlert("Edit Card Error", ex.Message, "OK");
+            }
+            finally
+            {
+                IsBusy = false;
+
+                if (wasDeleted is true)
+                {
+                    await Shell.Current.GoToAsync("..");
+                }
+            }
+        }
+
     }
 }
