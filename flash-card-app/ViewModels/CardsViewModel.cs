@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using flash_card_app.Models;
 using flash_card_app.Views;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 
 namespace flash_card_app.ViewModels
 {
@@ -19,6 +20,7 @@ namespace flash_card_app.ViewModels
 
         }
 
+        //OnAppearing Commands
         [RelayCommand]
         async Task GetCards()
         {
@@ -50,6 +52,36 @@ namespace flash_card_app.ViewModels
             }
         }
 
+        //Action Commands
+        [RelayCommand]
+        async Task DeleteDeck()
+        {
+            if (IsBusy is true)
+                return;
+
+            bool deleteDeck = false;
+
+            try
+            {
+                IsBusy = true;
+
+                deleteDeck = await Shell.Current.DisplayAlert("Delete Deck", "Obs! This will delete \n- This Deck \n- All Cards in this deck", "Yes", "No");
+
+                Debug.WriteLine($"deleteDeck: {deleteDeck}");
+
+                //Create logic to 1. Delete all cards in deck 2. Delete Deck
+            }
+            catch (Exception ex)
+            {
+                await errorHandler.DisplayErrorMsgAsync(ex);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+
+        //Navigation Commands
         [RelayCommand]
         async Task NavigateToCreateCardPage()
         {

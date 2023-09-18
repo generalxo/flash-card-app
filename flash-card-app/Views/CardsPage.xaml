@@ -16,6 +16,14 @@
                 Glyph="&#xe145;"/>
             </ToolbarItem.IconImageSource>
         </ToolbarItem>
+        <ToolbarItem
+            Command="{Binding DeleteDeckCommand}">
+            <ToolbarItem.IconImageSource>
+                <FontImageSource
+                    FontFamily="MaterialIcons-Regular"
+                    Glyph="&#xe872;"/>
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
     </ContentPage.ToolbarItems>
     <CollectionView
         SelectionMode="None"
