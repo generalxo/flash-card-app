@@ -7,96 +7,115 @@ using System.Diagnostics;
 
 namespace flash_card_app.ViewModels
 {
-    [QueryProperty("Deck", "Deck")]
-    public partial class CardsViewModel : BaseViewModel
-    {
-        private readonly Helpers.ErrorHandler errorHandler = new();
-        public ObservableCollection<FlashCardModel> OFlashCardModel { get; } = new();
+	[QueryProperty("Deck", "Deck")]
+	public partial class CardsViewModel : BaseViewModel
+	{
+		private readonly Helpers.ErrorHandler errorHandler = new();
+		public ObservableCollection<FlashCardModel> OFlashCardModel { get; } = new();
 
-        [ObservableProperty]
-        DeckModel deck;
-        public CardsViewModel()
-        {
 
-        }
 
-        //OnAppearing Commands
-        [RelayCommand]
-        async Task GetCards()
-        {
-            if (IsBusy)
-                return;
+		[ObservableProperty]
+		DeckModel deck;
+		public CardsViewModel()
+		{
 
-            try
-            {
-                IsBusy = true;
+		}
 
-                OFlashCardModel.Clear();
-                var repo = await App.Context.GetRepository<FlashCardModel>();
-                var collection = await repo.GetByCondition(x => x.DeckId == Deck.Id);
-                List<FlashCardModel> flashCards = collection.ToList();
+		//OnAppearing Commands
+		[RelayCommand]
+		async Task GetCards()
+		{
+			if (IsBusy)
+				return;
 
-                foreach (var item in flashCards)
-                {
-                    OFlashCardModel.Add(item);
-                    //Debug.WriteLine($"Title: {item.Title}, DeckId: {item.DeckId}");
-                }
-            }
-            catch (Exception ex)
-            {
-                await errorHandler.DisplayErrorMsgAsync(ex);
-            }
-            finally
-            {
-                IsBusy = false;
-            }
-        }
+			try
+			{
+				IsBusy = true;
 
-        //Action Commands
-        [RelayCommand]
-        async Task DeleteDeck()
-        {
-            if (IsBusy is true)
-                return;
+				OFlashCardModel.Clear();
+				var repo = await App.Context.GetRepository<FlashCardModel>();
+				var collection = await repo.GetByCondition(x => x.DeckId == Deck.Id);
+				List<FlashCardModel> flashCards = collection.ToList();
 
-            bool deleteDeck = false;
+				foreach (var item in flashCards)
+				{
+					OFlashCardModel.Add(item);
+					//Debug.WriteLine($"Title: {item.Title}, DeckId: {item.DeckId}");
+				}
+			}
+			catch (Exception ex)
+			{
+				await errorHandler.DisplayErrorMsgAsync(ex);
+			}
+			finally
+			{
+				IsBusy = false;
+			}
+		}
 
-            try
-            {
-                IsBusy = true;
+		//Action Commands
+		[RelayCommand]
+		async Task DeleteDeck()
+		{
+			if (IsBusy is true)
+				return;
 
-                deleteDeck = await Shell.Current.DisplayAlert("Delete Deck", "Obs! This will delete \n- This Deck \n- All Cards in this deck", "Yes", "No");
+			bool deleteDeck = false;
 
-                Debug.WriteLine($"deleteDeck: {deleteDeck}");
+			try
+			{
+				IsBusy = true;
 
-                //Create logic to 1. Delete all cards in deck 2. Delete Deck
-            }
-            catch (Exception ex)
-            {
-                await errorHandler.DisplayErrorMsgAsync(ex);
-            }
-            finally
-            {
-                IsBusy = false;
-            }
-        }
+				deleteDeck = await Shell.Current.DisplayAlert("Delete Deck", "Obs! This will delete \n- This Deck \n- All Cards in this deck", "Yes", "No");
 
-        //Navigation Commands
-        [RelayCommand]
-        async Task NavigateToCreateCardPage()
-        {
-            await Shell.Current.GoToAsync($"{nameof(CreateCardPage)}?Id={Deck.Id}");
-        }
+				Debug.WriteLine($"deleteDeck: {deleteDeck}");
 
-        [RelayCommand]
-        async Task NavigateToEditCardPage(FlashCardModel flashCard)
-        {
-            await Shell.Current.GoToAsync(nameof(EditCardPage), true,
-                new Dictionary<string, object>
-                {
-                    {"FlashCard", flashCard }
-                });
-        }
+				//Create logic to 1. Delete all cards in deck 2. Delete Deck
+				var flashCardRepo = await App.Context.GetRepository<FlashCardModel>();
+				var flashCards = await flashCardRepo.GetAll();
+				List<FlashCardModel> deleteCards = flashCards.ToList();
+				foreach (var item in deleteCards)
+				{
+					if (item.DeckId == Deck.Id)
+					{
+						await flashCardRepo.Delete(item.Id);
+					}
+				}
+				var deckRepo = await App.Context.GetRepository<DeckModel>();
+				await deckRepo.Delete(Deck.Id);
 
-    }
+			}
+			catch (Exception ex)
+			{
+				await errorHandler.DisplayErrorMsgAsync(ex);
+			}
+			finally
+			{
+				IsBusy = false;
+				if (deleteDeck)
+				{
+					await Shell.Current.GoToAsync("..");
+				}
+			}
+		}
+
+		//Navigation Commands
+		[RelayCommand]
+		async Task NavigateToCreateCardPage()
+		{
+			await Shell.Current.GoToAsync($"{nameof(CreateCardPage)}?Id={Deck.Id}");
+		}
+
+		[RelayCommand]
+		async Task NavigateToEditCardPage(FlashCardModel flashCard)
+		{
+			await Shell.Current.GoToAsync(nameof(EditCardPage), true,
+				new Dictionary<string, object>
+				{
+					{"FlashCard", flashCard }
+				});
+		}
+
+	}
 }
