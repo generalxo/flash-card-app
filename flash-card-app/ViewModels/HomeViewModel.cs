@@ -10,12 +10,20 @@ namespace flash_card_app.ViewModels
 			Title = "Home";
 		}
 
+		// Navigation Commands
 		[RelayCommand]
 		async Task NavigateToDeckPage()
 		{
 			await Shell.Current.GoToAsync(nameof(DeckPage));
 		}
 
+		[RelayCommand]
+		async Task NavigateToSelectDeckPage()
+		{
+			await Shell.Current.GoToAsync(nameof(SelectDeckPage));
+		}
+
+		// Action Commnads
 		[RelayCommand]
 		static void ExitApp()
 		{

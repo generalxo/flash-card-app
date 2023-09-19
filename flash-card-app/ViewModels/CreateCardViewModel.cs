@@ -35,7 +35,6 @@ namespace flash_card_app.ViewModels
             {
                 IsBusy = true;
 
-
                 if (FlashCard.Title.Length > 0 && FlashCard.Question.Length > 0 && FlashCard.Answer.Length > 0 && Id != 0)
                 {
                     await repo.Add(new FlashCardModel

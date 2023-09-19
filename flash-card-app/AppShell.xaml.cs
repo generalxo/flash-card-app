@@ -4,15 +4,17 @@ namespace flash_card_app;
 
 public partial class AppShell : Shell
 {
-	public AppShell()
-	{
-		InitializeComponent();
+    public AppShell()
+    {
+        InitializeComponent();
 
-		Routing.RegisterRoute(nameof(HomePage), typeof(HomePage));
-		Routing.RegisterRoute(nameof(DeckPage), typeof(DeckPage));
-		Routing.RegisterRoute(nameof(CreateDeckPage), typeof(CreateDeckPage));
-		Routing.RegisterRoute(nameof(CardsPage), typeof(CardsPage));
-		Routing.RegisterRoute(nameof(CreateCardPage), typeof(CreateCardPage));
-		Routing.RegisterRoute(nameof(EditCardPage), typeof(EditCardPage));
-	}
+        Routing.RegisterRoute(nameof(HomePage), typeof(HomePage));
+        Routing.RegisterRoute(nameof(DeckPage), typeof(DeckPage));
+        Routing.RegisterRoute(nameof(CreateDeckPage), typeof(CreateDeckPage));
+        Routing.RegisterRoute(nameof(CardsPage), typeof(CardsPage));
+        Routing.RegisterRoute(nameof(CreateCardPage), typeof(CreateCardPage));
+        Routing.RegisterRoute(nameof(EditCardPage), typeof(EditCardPage));
+        Routing.RegisterRoute(nameof(SelectDeckPage), typeof(SelectDeckPage));
+        Routing.RegisterRoute(nameof(PlayPage), typeof(PlayPage));
+    }
 }

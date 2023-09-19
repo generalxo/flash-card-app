@@ -27,6 +27,13 @@
                     FontFamily="RobotoMono-SemiBold"
                     HorizontalOptions="Center"/>
             </Frame>
+            <Button 
+                Command="{Binding NavigateToSelectDeckPageCommand}"
+                Text="Play"
+                FontFamily="RobotoMono-Regular"
+                HeightRequest="70"
+                WidthRequest="280"
+                Margin="0, 40, 0, 0"/>
 
             <Button
                 x:Name="btnStart"
