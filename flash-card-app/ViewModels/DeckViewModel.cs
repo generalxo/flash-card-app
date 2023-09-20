@@ -2,7 +2,6 @@
 using flash_card_app.Models;
 using flash_card_app.Views;
 using System.Collections.ObjectModel;
-//Notes: We need some way to edit the card deck & be able to delete it. All cards that are in that deck also be deleted. First Delete Cards then The Deck.
 
 namespace flash_card_app.ViewModels
 {
@@ -10,14 +9,15 @@ namespace flash_card_app.ViewModels
     {
         private readonly Helpers.ErrorHandler errorHandler = new();
 
-        public ObservableCollection<DeckModel> ODeckModel { get; } = new();
+        public ObservableCollection<DeckModel> ObservableDecks { get; } = new();
         public DeckViewModel()
         {
             Title = "My Decks";
         }
 
+        // OnAppearing Commands 
         [RelayCommand]
-        async Task GetCardDecks()
+        async Task GetDecks()
         {
             if (IsBusy)
                 return;
@@ -26,15 +26,19 @@ namespace flash_card_app.ViewModels
             {
                 IsBusy = true;
 
-                ODeckModel.Clear();
-
                 var repo = await App.Context.GetRepository<DeckModel>();
+
+                if (ObservableDecks.Count > 0)
+                {
+                    ObservableDecks.Clear();
+                }
+
                 var collection = await repo.GetAll();
                 List<DeckModel> decks = collection.ToList();
 
                 foreach (var item in decks)
                 {
-                    ODeckModel.Add(item);
+                    ObservableDecks.Add(item);
                 }
             }
             catch (Exception ex)
@@ -47,10 +51,17 @@ namespace flash_card_app.ViewModels
             }
         }
 
+        // Navigation Commands
         [RelayCommand]
         async Task NavigateToCreateDeckPage()
         {
             await Shell.Current.GoToAsync(nameof(CreateDeckPage));
+        }
+
+        [RelayCommand]
+        static async Task GoBackAsync()
+        {
+            await Shell.Current.GoToAsync("..");
         }
 
         [RelayCommand]
@@ -64,12 +75,6 @@ namespace flash_card_app.ViewModels
                 {
                     {"Deck", deckModel }
                 });
-        }
-
-        [RelayCommand]
-        static async Task GoBackAsync()
-        {
-            await Shell.Current.GoToAsync("..");
         }
 
     }

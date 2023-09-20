@@ -2,6 +2,10 @@
 using CommunityToolkit.Mvvm.Input;
 using flash_card_app.Models;
 
+/* To Do
+ * Create validation for the input fields
+ */
+
 namespace flash_card_app.ViewModels
 {
     [QueryProperty("FlashCard", "FlashCard")]
@@ -25,11 +29,9 @@ namespace flash_card_app.ViewModels
             try
             {
                 IsBusy = true;
-                //Debug.WriteLine($"Title: {FlashCard.Title} Question: {FlashCard.Question} Answer: {FlashCard.Answer} DeckId: {FlashCard.DeckId} ");
 
                 var repo = await App.Context.GetRepository<FlashCardModel>();
                 await repo.Update(FlashCard);
-
             }
             catch (Exception ex)
             {
@@ -60,13 +62,7 @@ namespace flash_card_app.ViewModels
                 {
                     var repo = await App.Context.GetRepository<FlashCardModel>();
                     await repo.Delete(FlashCard.Id);
-                    deleteCard = true;
                 }
-                else
-                {
-                    //Nothing should happen here
-                }
-
             }
             catch (Exception ex)
             {

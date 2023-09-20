@@ -2,7 +2,11 @@
 using CommunityToolkit.Mvvm.Input;
 using flash_card_app.Models;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
+
+/* To Do
+ * Inform user if answer given was correct or not
+ * Make it so upercase does not matter when checking answer.
+ */
 
 namespace flash_card_app.ViewModels
 {
@@ -10,7 +14,7 @@ namespace flash_card_app.ViewModels
     public partial class PlayPageViewModel : BaseViewModel
     {
         private readonly Helpers.ErrorHandler errorHandler = new();
-        public ObservableCollection<FlashCardModel> OFlashCardModel { get; } = new();
+        public ObservableCollection<FlashCardModel> ObservableFlashCards { get; } = new();
 
         [ObservableProperty]
         DeckModel deck;
@@ -22,7 +26,7 @@ namespace flash_card_app.ViewModels
         string input;
 
         private int index;
-        private int max;
+        private int ammountOfCardsInDeck;
 
         public PlayPageViewModel()
         {
@@ -36,25 +40,22 @@ namespace flash_card_app.ViewModels
             if (IsBusy)
                 return;
 
-            index = 0;
-
             try
             {
                 IsBusy = true;
 
+                index = 0;
+
                 var repo = await App.Context.GetRepository<FlashCardModel>();
                 var collection = await repo.GetByCondition(x => x.DeckId == Deck.Id);
                 List<FlashCardModel> flashCards = collection.OrderBy(x => x.Streak).ToList();
-                //List<FlashCardModel> flashCards = collection.ToList();
 
                 foreach (var item in flashCards)
                 {
-                    OFlashCardModel.Add(item);
-                    //Debug.WriteLine(item);
+                    ObservableFlashCards.Add(item);
                 }
 
-                max = flashCards.Count - 1;
-
+                ammountOfCardsInDeck = flashCards.Count - 1;
             }
             catch (Exception ex)
             {
@@ -62,7 +63,7 @@ namespace flash_card_app.ViewModels
             }
             finally
             {
-                Flashcard = OFlashCardModel[index];
+                Flashcard = ObservableFlashCards[index];
                 IsBusy = false;
             }
         }
@@ -70,11 +71,11 @@ namespace flash_card_app.ViewModels
         // Action Command
         [RelayCommand]
         async Task EnterAnswer()
-        { //Execute when enter btn is pressed
-            int tempStreak;
-
+        {
             if (IsBusy)
                 return;
+
+            int streakValue;
 
             try
             {
@@ -82,20 +83,19 @@ namespace flash_card_app.ViewModels
 
                 var repo = await App.Context.GetRepository<FlashCardModel>();
 
-                tempStreak = OFlashCardModel[index].Streak;
+                streakValue = ObservableFlashCards[index].Streak;
 
-                if (OFlashCardModel[index].Answer == Input)
+                if (ObservableFlashCards[index].Answer == Input)
                 {
-                    tempStreak++;
-                    OFlashCardModel[index].Streak = tempStreak;
-                    await repo.Update(OFlashCardModel[index]);
+                    streakValue++;
+                    ObservableFlashCards[index].Streak = streakValue;
+                    await repo.Update(ObservableFlashCards[index]);
                 }
                 else
                 {
-                    OFlashCardModel[index].Streak = 0;
-                    await repo.Update(OFlashCardModel[index]);
+                    ObservableFlashCards[index].Streak = 0;
+                    await repo.Update(ObservableFlashCards[index]);
                 }
-
             }
             catch (Exception ex)
             {
@@ -105,18 +105,15 @@ namespace flash_card_app.ViewModels
             {
                 IsBusy = false;
 
-
-                if (index == max)
+                if (index == ammountOfCardsInDeck)
                 {
                     await Shell.Current.GoToAsync("..");
                 }
                 else
                 {
-                    Debug.WriteLine($"FlashCard Answer: {OFlashCardModel[index].Answer} Input: {Input}");
-                    Debug.WriteLine($"streak {OFlashCardModel[index].Streak}");
                     Input = string.Empty;
                     index++;
-                    Flashcard = OFlashCardModel[index];
+                    Flashcard = ObservableFlashCards[index];
                 }
             }
         }

@@ -2,6 +2,10 @@
 using CommunityToolkit.Mvvm.Input;
 using flash_card_app.Models;
 
+/* To Do
+ * Make sure there are no double blank spaces in question and answer or new lines / "\n" 
+ */
+
 namespace flash_card_app.ViewModels
 {
     [QueryProperty("Id", "Id")]
@@ -21,19 +25,18 @@ namespace flash_card_app.ViewModels
             FlashCard = new FlashCardModel();
         }
 
+        // Action Commands
         [RelayCommand]
-        async Task CreateNewFlashCard() //This will be executed when save btn is clicked
+        async Task CreateNewFlashCard()
         {
-            var repo = await App.Context.GetRepository<FlashCardModel>();
-
-            //Debug.WriteLine($"Title: {FlashCardModel.Title} Question: {FlashCardModel.Question} Answer: {FlashCardModel.Answer} Id: {Id}");
-
             if (IsBusy)
                 return;
 
             try
             {
                 IsBusy = true;
+
+                var repo = await App.Context.GetRepository<FlashCardModel>();
 
                 if (FlashCard.Title.Length > 0 && FlashCard.Question.Length > 0 && FlashCard.Answer.Length > 0 && Id != 0)
                 {

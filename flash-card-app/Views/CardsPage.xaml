@@ -27,7 +27,7 @@
     </ContentPage.ToolbarItems>
     <CollectionView
         SelectionMode="None"
-        ItemsSource="{Binding OFlashCardModel}">
+        ItemsSource="{Binding ObservableFlashCards}">
         <CollectionView.ItemTemplate>
             <DataTemplate
                 x:DataType="model:FlashCardModel">

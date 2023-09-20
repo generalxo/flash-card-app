@@ -8,14 +8,14 @@ namespace flash_card_app.ViewModels
     public partial class SelectDeckViewModel : BaseViewModel
     {
         private readonly Helpers.ErrorHandler ErrorHandler;
-        public ObservableCollection<DeckModel> ODecks { get; } = new();
+        public ObservableCollection<DeckModel> ObservableDecks { get; } = new();
 
         public SelectDeckViewModel()
         {
 
         }
 
-        //OnAppearing Command
+        // OnAppearing Command
         [RelayCommand]
         async Task GetDecks()
         {
@@ -26,7 +26,7 @@ namespace flash_card_app.ViewModels
             {
                 IsBusy = true;
 
-                ODecks.Clear();
+                ObservableDecks.Clear();
 
                 var repo = await App.Context.GetRepository<DeckModel>();
                 var collection = await repo.GetAll();
@@ -34,9 +34,8 @@ namespace flash_card_app.ViewModels
 
                 foreach (var item in deckModels)
                 {
-                    ODecks.Add(item);
+                    ObservableDecks.Add(item);
                 }
-
             }
             catch (Exception ex)
             {
@@ -48,7 +47,7 @@ namespace flash_card_app.ViewModels
             }
         }
 
-        //Action Command
+        // Action Command
         [RelayCommand]
         async Task NavigateToPlayPage(DeckModel deckModel)
         {
@@ -58,6 +57,5 @@ namespace flash_card_app.ViewModels
                     {"Deck", deckModel }
                 });
         }
-
     }
 }

@@ -5,7 +5,7 @@
              xmlns:model="clr-namespace:flash_card_app.Models"
              xmlns:viewmodel="clr-namespace:flash_card_app.ViewModels"
              x:DataType="viewmodel:DeckViewModel"
-             Title="">
+             Title="{Binding Title}">
     <ContentPage.ToolbarItems>
         <ToolbarItem Command="{Binding NavigateToCreateDeckPageCommand}">
             <ToolbarItem.IconImageSource>
@@ -22,7 +22,7 @@
         </Grid.RowDefinitions>
         <CollectionView
             SelectionMode="None"
-            ItemsSource="{Binding ODeckModel}">
+            ItemsSource="{Binding ObservableDecks}">
             <CollectionView.ItemTemplate>
                 <DataTemplate 
                     x:DataType="model:DeckModel">

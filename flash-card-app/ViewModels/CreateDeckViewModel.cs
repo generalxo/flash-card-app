@@ -15,16 +15,20 @@ namespace flash_card_app.ViewModels
             Title = "Create a Deck";
         }
 
+        //Action Command
         [RelayCommand]
         async Task CreateNewDeck()
         {
-            var repo = await App.Context.GetRepository<DeckModel>();
             if (IsBusy)
                 return;
+
             try
             {
                 IsBusy = true;
-                if (DeckName.Length > 0)
+
+                var repo = await App.Context.GetRepository<DeckModel>();
+
+                if (DeckName.Length > 0 && DeckName is not null)
                 {
                     await repo.Add(new DeckModel { Name = DeckName });
                 }
@@ -45,6 +49,7 @@ namespace flash_card_app.ViewModels
             }
         }
 
+        // Navigation Command
         [RelayCommand]
         async Task GoBackAsync()
         {

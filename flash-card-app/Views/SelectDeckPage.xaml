@@ -21,7 +21,7 @@
         <CollectionView
             Grid.Row="1"
             SelectionMode="None"
-            ItemsSource="{Binding ODecks}">
+            ItemsSource="{Binding ObservableDecks}">
             <CollectionView.ItemTemplate>
                 <DataTemplate
                     x:DataType="model:DeckModel">
