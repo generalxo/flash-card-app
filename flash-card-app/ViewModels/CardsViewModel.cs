@@ -30,9 +30,10 @@ namespace flash_card_app.ViewModels
             {
                 IsBusy = true;
 
+                var repo = await App.Context.GetRepository<FlashCardModel>();
+
                 ObservableFlashCards.Clear();
 
-                var repo = await App.Context.GetRepository<FlashCardModel>();
                 var collection = await repo.GetByCondition(x => x.DeckId == Deck.Id);
                 List<FlashCardModel> flashCards = collection.ToList();
 
@@ -70,6 +71,8 @@ namespace flash_card_app.ViewModels
                 if (deleteDeck is true)
                 {
                     var flashCardRepo = await App.Context.GetRepository<FlashCardModel>();
+                    var deckRepo = await App.Context.GetRepository<DeckModel>();
+
                     var flashCards = await flashCardRepo.GetByCondition(x => x.DeckId == Deck.Id);
                     List<FlashCardModel> deleteCards = flashCards.ToList();
 
@@ -78,10 +81,8 @@ namespace flash_card_app.ViewModels
                         await flashCardRepo.Delete(card.Id);
                     }
 
-                    var deckRepo = await App.Context.GetRepository<DeckModel>();
                     await deckRepo.Delete(Deck.Id);
                 }
-
             }
             catch (Exception ex)
             {
@@ -90,6 +91,7 @@ namespace flash_card_app.ViewModels
             finally
             {
                 IsBusy = false;
+
                 if (deleteDeck)
                 {
                     await Shell.Current.GoToAsync("..");
@@ -113,6 +115,5 @@ namespace flash_card_app.ViewModels
                     {"FlashCard", flashCard }
                 });
         }
-
     }
 }

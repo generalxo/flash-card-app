@@ -2,10 +2,6 @@
 using CommunityToolkit.Mvvm.Input;
 using flash_card_app.Models;
 
-/* To Do
- * Create validation for the input fields
- */
-
 namespace flash_card_app.ViewModels
 {
     [QueryProperty("FlashCard", "FlashCard")]
@@ -26,12 +22,29 @@ namespace flash_card_app.ViewModels
             if (IsBusy is true)
                 return;
 
+            bool succes = false;
+
             try
             {
                 IsBusy = true;
 
                 var repo = await App.Context.GetRepository<FlashCardModel>();
-                await repo.Update(FlashCard);
+
+                FlashCard.Question = FlashCard.Question.Replace("\n", " ").Replace("  ", " ").Trim();
+                FlashCard.Answer = FlashCard.Answer.Replace("\n", " ").Replace("  ", " ").Trim();
+                FlashCard.Title = FlashCard.Title.Replace("\n", " ").Replace("  ", " ").Trim();
+
+                if (FlashCard.Title.Length > 0 && FlashCard.Question.Length > 0 && FlashCard.Answer.Length > 0)
+                {
+                    FlashCard.Streak = 0;
+                    await repo.Update(FlashCard);
+                    succes = true;
+                }
+                else
+                {
+                    succes = false;
+                    await Shell.Current.DisplayAlert("Edit Card Error", "Invalid input was given", "OK");
+                }
             }
             catch (Exception ex)
             {
@@ -40,7 +53,11 @@ namespace flash_card_app.ViewModels
             finally
             {
                 IsBusy = false;
-                await Shell.Current.GoToAsync("..");
+
+                if (succes is true)
+                {
+                    await Shell.Current.GoToAsync("..");
+                }
             }
         }
 

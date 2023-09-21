@@ -2,10 +2,6 @@
 using CommunityToolkit.Mvvm.Input;
 using flash_card_app.Models;
 
-/* To Do
- * Make sure there are no double blank spaces in question and answer or new lines / "\n" 
- */
-
 namespace flash_card_app.ViewModels
 {
     [QueryProperty("Id", "Id")]
@@ -32,14 +28,21 @@ namespace flash_card_app.ViewModels
             if (IsBusy)
                 return;
 
+            bool success = false;
+
             try
             {
                 IsBusy = true;
 
                 var repo = await App.Context.GetRepository<FlashCardModel>();
 
+                FlashCard.Question = FlashCard.Question.Replace("\n", " ").Replace("  ", " ").Trim();
+                FlashCard.Answer = FlashCard.Answer.Replace("\n", " ").Replace("  ", " ").Trim();
+                FlashCard.Title = FlashCard.Title.Replace("\n", " ").Replace("  ", " ").Trim();
+
                 if (FlashCard.Title.Length > 0 && FlashCard.Question.Length > 0 && FlashCard.Answer.Length > 0 && Id != 0)
                 {
+                    success = true;
                     await repo.Add(new FlashCardModel
                     {
                         Title = FlashCard.Title,
@@ -51,6 +54,7 @@ namespace flash_card_app.ViewModels
                 }
                 else
                 {
+                    success = false;
                     await Shell.Current.DisplayAlert("Create Card Error", "Invalid input was given", "OK");
                 }
             }
@@ -61,12 +65,16 @@ namespace flash_card_app.ViewModels
             finally
             {
                 IsBusy = false;
-                FlashCard.Title = string.Empty;
-                FlashCard.Question = string.Empty;
-                FlashCard.Answer = string.Empty;
-                FlashCard.DeckId = 0;
 
-                await Shell.Current.GoToAsync("..");
+                if (success is true)
+                {
+                    FlashCard.Title = string.Empty;
+                    FlashCard.Question = string.Empty;
+                    FlashCard.Answer = string.Empty;
+                    FlashCard.DeckId = 0;
+
+                    await Shell.Current.GoToAsync("..");
+                }
             }
         }
     }

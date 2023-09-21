@@ -27,6 +27,7 @@ namespace flash_card_app.ViewModels
                 IsBusy = true;
 
                 var repo = await App.Context.GetRepository<DeckModel>();
+                DeckName = DeckName.Trim();
 
                 if (DeckName.Length > 0 && DeckName is not null)
                 {
