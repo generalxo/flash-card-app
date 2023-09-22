@@ -27,14 +27,17 @@
                     x:DataType="model:DeckModel">
                     <VerticalStackLayout>
                         <Frame
-                            Margin="5">
+                            Margin="15, 10, 15, 10"
+                            Padding="0">
                             <Frame.GestureRecognizers>
                                 <TapGestureRecognizer 
                                     CommandParameter="{Binding .}"
                                     Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:SelectDeckViewModel}}, Path=NavigateToPlayPageCommand}"/>
                             </Frame.GestureRecognizers>
                             <Label 
-                                Text="{Binding Name}"/>
+                                Text="{Binding Name}"
+                                HeightRequest="50"
+                                VerticalTextAlignment="Center"/>
                         </Frame>
                     </VerticalStackLayout>
                 </DataTemplate>
